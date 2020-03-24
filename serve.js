@@ -18,7 +18,9 @@ app.post('/messages', function(req, res){
 app.get("/", function(req, res){
     res.send("hello poo")
 })
-
+app.post("/messages", function(req, rea){
+	
+})
  app.listen(
    process.env.port ||
    8000, function(){
