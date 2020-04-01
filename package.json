@@ -1,5 +1,5 @@
  {
-  "start": "node serve.js",
+  "start": "node index.js",
   "requires": true,
   "lockfileVersion": 1,
   "dependencies": {
