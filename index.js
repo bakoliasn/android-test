@@ -26,10 +26,18 @@ app.get("/", function(req, res){
    console.log(
   'listening on: ' + (process.env.port || ' localhost: 8000')  )
 })
-console.log("cd")
 
 async function expose(port){
 	const url = await ngrok.connect(port)
 	console.log(url)
+	const webhook = smooch.webhooks.create(
+		{
+			target: url + "/messages",
+			triggers:["message: appUser"]
+		}
+	)
+	console.log(webhook)
 }
 expose(8000)
+
+
