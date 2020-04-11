@@ -11,8 +11,9 @@ const smooch = new Smooch({
 	scope: 'app'
 })
 app.use(bodyParser.json())
-app.post('/messages', function(req, res){
-	console.log(JSON.stringify(req.body, null, 4))
+app.post('/messages', async (req, res) =>{
+	console.log("message!: " + JSON.stringify(req.body, null, 4))
+	res.send(200)
 	
 	})
 	
@@ -29,14 +30,19 @@ app.get("/", function(req, res){
 
 async function expose(port){
 	const url = await ngrok.connect(port)
-	console.log(url)
-	const webhook = smooch.webhooks.create(
+	console.log(url + "/messages")
+	const webhook = await smooch.webhooks.create(
 		{
 			target: url + "/messages",
-			triggers:["message: appUser"]
+			triggers:["message:appUser",
+			 "message:appMaker",
+			 "conversation:read"
+			 ],
+			includeClient: true
 		}
 	)
 	console.log(webhook)
+	
 }
 expose(8000)
 
